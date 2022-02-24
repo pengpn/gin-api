@@ -2,12 +2,17 @@ package main
 
 import (
 	"fmt"
+	"gin-api/models"
+	"gin-api/pkg/logging"
 	"gin-api/pkg/setting"
 	"gin-api/routers"
 	"net/http"
 )
 
 func main() {
+	setting.Setup()
+	models.Setup()
+	logging.Setup()
 	// 利用endless 优雅热重启
 	//endless.DefaultReadTimeOut = setting.ReadTimeout
 	//endless.DefaultWriteTimeOut = setting.WriteTimeout
@@ -27,7 +32,7 @@ func main() {
 	router := routers.InitRouter()
 
 	s := &http.Server{
-		Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
+		Addr:           fmt.Sprintf(":%d", setting.ServerSetting.HttpPort),
 		Handler:        router,
 		ReadTimeout:    setting.ReadTimeout,
 		WriteTimeout:   setting.WriteTimeout,

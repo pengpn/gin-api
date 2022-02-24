@@ -3,9 +3,11 @@ package routers
 import (
 	"gin-api/middleware/jwt"
 	"gin-api/pkg/setting"
+	"gin-api/pkg/upload"
 	"gin-api/routers/api"
 	v1 "gin-api/routers/api/v1"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func InitRouter() *gin.Engine {
@@ -14,7 +16,9 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 
 	gin.SetMode(setting.RunMode)
+	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
 	r.GET("/auth", api.GetAuth)
+	r.POST("/upload", api.UploadImage)
 
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())

@@ -39,9 +39,9 @@ func InitRouter() *gin.Engine {
 		//新建文章
 		apiv1.POST("/articles", v1.AddArticle)
 		//更新指定文章
-		apiv1.PUT("/articles/:id", v1.EditArticle)
-		//删除指定文章
-		apiv1.DELETE("/articles/:id", v1.DeleteArticle)
+		//apiv1.PUT("/articles/:id", v1.EditArticle)
+		////删除指定文章
+		//apiv1.DELETE("/articles/:id", v1.DeleteArticle)
 
 	}
 	return r

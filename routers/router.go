@@ -2,6 +2,7 @@ package routers
 
 import (
 	"gin-api/middleware/jwt"
+	"gin-api/pkg/export"
 	"gin-api/pkg/setting"
 	"gin-api/pkg/upload"
 	"gin-api/routers/api"
@@ -42,6 +43,11 @@ func InitRouter() *gin.Engine {
 		//apiv1.PUT("/articles/:id", v1.EditArticle)
 		////删除指定文章
 		//apiv1.DELETE("/articles/:id", v1.DeleteArticle)
+		//导出标签
+		r.POST("/tags/export", v1.ExportTag)
+		r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
+		//导入标签
+		r.POST("/tags/import", v1.ImportTag)
 
 	}
 	return r
